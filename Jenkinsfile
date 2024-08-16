@@ -20,7 +20,10 @@ pipeline {
         }
         stage('Clone GitLab Repo') {
             steps {
-                git branch: "${params.BRANCH_NAME}", url: "${GIT_REPO_URL}"
+                script {
+                    def targetDirectory = 'qa'
+                    sh "git clone --depth=1 --branch=${params.BRANCH_NAME} ${GIT_REPO_URL} ${targetDirectory}"
+                }
             }
         }
         stage('Deploy Files to S3') {
@@ -34,7 +37,7 @@ pipeline {
                         export BRANCH_NAME=${params.BRANCH_NAME}
                         export COMMIT_ID=${commitId}
                         chmod +x ./push_to_s3.sh
-                        ./push_to_s3.sh $S3_BUCKET $BRANCH_NAME $COMMIT_ID
+                        ./push_to_s3.sh $S3_BUCKET $BRANCH_NAME $COMMIT_ID qa
                         '''
                     }
                 }
