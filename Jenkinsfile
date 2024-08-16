@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label any
+        agent any
     }
     environment {
         S3_BUCKET = 'nayl'
