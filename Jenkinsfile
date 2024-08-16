@@ -13,8 +13,9 @@ pipeline {
     stages {
         stage('Begin Notifier') {
             steps {  
-                wrap([$class: 'BuildUser']) {
-                    message: "S3 file deployment is started by ${BUILD_USER} in ${BRANCH_NAME} branch"
+                script {
+                    echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch "
+                }
                 }
             }
         }
