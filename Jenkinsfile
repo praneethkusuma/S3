@@ -39,26 +39,4 @@ pipeline {
             }
         }
     }
-    post {
-            failure {
-                script {
-                    echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch has Failed"
-                }
-            }
-            success {
-                script {
-                    echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch is Successful"
-                }
-            }
-            unstable {
-                script {
-                    echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch is Unstable"
-                }
-            }
-            aborted {
-                script {
-                    echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch is Aborted"
-                }
-            }
-        }
-    }
+}
