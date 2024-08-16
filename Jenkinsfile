@@ -36,6 +36,9 @@ pipeline {
                         export S3_BUCKET=${S3_BUCKET}
                         export BRANCH_NAME=${params.BRANCH_NAME}
                         export COMMIT_ID=${commitId}
+                        script {
+                              echo "$COMMIT_ID"
+                        }
                         chmod +x ./push_to_s3.sh
                         ./push_to_s3.sh $S3_BUCKET $BRANCH_NAME $COMMIT_ID qa
                         '''
