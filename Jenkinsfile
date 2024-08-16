@@ -39,33 +39,25 @@ pipeline {
         }
     }
     post {
-        failure {
-            wrap([$class: 'BuildUser']) {
-                message: "S3 file deployment started by ${BUILD_USER} in ${BRANCH_NAME} branch has Failed",
-                color: "#FF0000",
-                status: "Failure"
+            failure {
+                script {
+                    echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch has Failed"
+                }
             }
-        }
-        success {
-            wrap([$class: 'BuildUser']) {
-                message: "S3 file deployment started by ${BUILD_USER} in ${BRANCH_NAME} branch is Successful",
-                color: "#00FF00",
-                status: "Success"
+            success {
+                script {
+                    echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch is Successful"
+                }
             }
-        }
-        unstable {
-            wrap([$class: 'BuildUser']) {
-                message: "S3 file deployment started by ${BUILD_USER} in ${BRANCH_NAME} branch is Unstable",
-                color: "#FFFF00",
-                status: "Unstable"
+            unstable {
+                script {
+                    echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch is Unstable"
+                }
             }
-        }
-        aborted {
-            wrap([$class: 'BuildUser']) {
-                message: "S3 file deployment started by ${BUILD_USER} in ${BRANCH_NAME} branch is Aborted",
-                color: "#CCEEFF",
-                status: "Aborted"
+            aborted {
+                script {
+                    echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch is Aborted"
+                }
             }
         }
     }
-}
