@@ -8,7 +8,7 @@ pipeline {
         AWS_DEFAULT_REGION = 'ap-south-1'
     }
     parameters {
-        string(name: 'master', defaultValue: 'main', description: 'Branch to deploy')
+        string(name: 'main', defaultValue: 'main', description: 'Branch to deploy')
     }
     stages {
         stage('Begin Notifier') {
