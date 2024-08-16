@@ -30,8 +30,11 @@ pipeline {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {
                         sh '''#!/bin/bash
                         export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+                        export S3_BUCKET=${S3_BUCKET}
+                        export BRANCH_NAME=${params.BRANCH_NAME}
+                        export COMMIT_ID=${commitId}
                         chmod +x ./push_to_s3.sh
-                        ./push_to_s3.sh ${S3_BUCKET} ${params.BRANCH_NAME} ${commitId}
+                        ./push_to_s3.sh $S3_BUCKET $BRANCH_NAME $COMMIT_ID
                         '''
                     }
                 }
