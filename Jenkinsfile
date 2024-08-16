@@ -14,7 +14,7 @@ pipeline {
         stage('Begin Notifier') {
             steps {
                 script {
-                    echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch"
+                    echo "S3 file deployment started "
                 }
             }
         }
@@ -41,22 +41,22 @@ pipeline {
     post {
         failure {
             script {
-                echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch has Failed"
+                echo "S3 file deployment started by you in has Failed"
             }
         }
         success {
             script {
-                echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch is Successful"
+                echo "S3 file deployment started by you Successful"
             }
         }
         unstable {
             script {
-                echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch is Unstable"
+                echo "S3 file deployment started by you is Unstable"
             }
         }
         aborted {
             script {
-                echo "S3 file deployment started by ${env.BUILD_USER} in ${params.BRANCH_NAME} branch is Aborted"
+                echo "S3 file deployment started by you is Aborted"
             }
         }
     }
