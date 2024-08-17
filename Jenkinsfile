@@ -9,7 +9,7 @@ pipeline {
         targetDirectory = 'QA'
     }
     parameters {
-        string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Branch to deploy'),
+        string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Branch to deploy')
         string(name: 'DIRECTORY', defaultValue: 'QA', description: 'environment')
             }
     stages {
