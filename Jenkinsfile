@@ -31,7 +31,7 @@ pipeline {
             steps {
                 script {
                     //def commitId = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
-                    def commitSHA = sh(returnStdout: true, script: 'git -C ${targetDirectory} rev-parse HEAD').trim()
+                    def commitSHA = sh(returnStdout: true, script: 'git -C ${DIRECTORY} rev-parse HEAD').trim()
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {
                         sh '''#!/bin/bash
                         export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
