@@ -6,6 +6,7 @@ pipeline {
         S3_BUCKET = 'nayl'
         GIT_REPO_URL = 'https://github.com/praneethkusuma/fundtransfer.git'
         AWS_DEFAULT_REGION = 'ap-south-1'
+        targetDirectory = 'QA'
     }
     parameters {
         string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Branch to deploy')
@@ -21,7 +22,6 @@ pipeline {
         stage('Clone GitLab Repo') {
             steps {
                 script {
-                    def targetDirectory = 'qa'
                     sh "git clone --depth=1 --branch=${params.BRANCH_NAME} ${GIT_REPO_URL} ${targetDirectory}"
                 }
             }
@@ -39,7 +39,7 @@ pipeline {
                         echo "hello"
                         echo "$COMMIT_ID"
                         chmod +x ./push_to_s3.sh
-                        ./push_to_s3.sh $S3_BUCKET $BRANCH_NAME $COMMIT_ID qa
+                        ./push_to_s3.sh $S3_BUCKET $BRANCH_NAME $COMMIT_ID $targetDirectory
                         '''
                     }
                 }
