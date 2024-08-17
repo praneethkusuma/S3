@@ -31,7 +31,7 @@ pipeline {
             steps {
                 script {
                     //def commitId = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
-                    def commitSHA = sh(returnStdout: true, script: 'git -C ${params.DIRECTORY} rev-parse HEAD').trim()
+                    def commitSHA = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {
                         sh """
                         #!/bin/bash
