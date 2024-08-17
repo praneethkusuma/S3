@@ -30,7 +30,7 @@ pipeline {
         stage('Deploy Files to S3') {
             steps {
                 script {
-                    #def commitId = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+                    //def commitId = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
                     def commitSHA = sh(returnStdout: true, script: 'git -C ${targetDirectory} rev-parse HEAD').trim()
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {
                         sh '''#!/bin/bash
