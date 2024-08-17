@@ -34,7 +34,7 @@ pipeline {
                     def commitSHA = sh(returnStdout: true, script: 'git -C ${params.DIRECTORY} rev-parse HEAD').trim()
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {
                         sh """
-                        #!/bin/bash
+                        #!/bin/sh
                         export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
                         export S3_BUCKET=${S3_BUCKET}
                         export BRANCH_NAME=${params.BRANCH_NAME}
