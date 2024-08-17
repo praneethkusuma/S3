@@ -37,9 +37,9 @@ pipeline {
                         #!/bin/bash
                         export AWS_DEFAULT_REGION=\${AWS_DEFAULT_REGION}
                         export S3_BUCKET=\${S3_BUCKET}
-                        export BRANCH_NAME=\${params.BRANCH_NAME}
+                        export BRANCH_NAME=\${BRANCH_NAME}
                         export COMMIT_ID=\${commitSHA}
-                        export TARGETDIR=\${params.DIRECTORY}
+                        export TARGETDIR=\${DIRECTORY}
                         echo "hello"
                         echo "\$COMMIT_ID"
                         chmod +x ./push_to_s3.sh
