@@ -39,7 +39,7 @@ pipeline {
                         export AWS_DEFAULT_REGION=\${AWS_DEFAULT_REGION}
                         export S3_BUCKET=\${S3_BUCKET}
                         export BRANCH_NAME=\${BRANCH_NAME}
-                        export COMMIT_ID=\${commitSHA}
+                        export COMMIT_ID=${commitSHA}     # Groovy variable passed correctly
                         export TARGETDIR=\${DIRECTORY}
                         echo "hello"
                         echo "\$COMMIT_ID"
