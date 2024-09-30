@@ -32,6 +32,7 @@ pipeline {
                 script {
                     //def commitId = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
                     def commitSHA = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+                     echo "Commit SHA: ${commitSHA}"
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {
                         sh """
                         #!/bin/bash
@@ -43,7 +44,7 @@ pipeline {
                         echo "hello"
                         echo "\$COMMIT_ID"
                         chmod +x ./push_to_s3.sh
-                        ./push_to_s3.sh \$S3_BUCKET \$BRANCH_NAME \$TARGETDIR \$CLONE_DIR
+                        ./push_to_s3.sh \$S3_BUCKET \$BRANCH_NAME \$TARGETDIR 
                         """
                     }
                 }
