@@ -44,7 +44,7 @@ pipeline {
                         echo "hello"
                         echo "\$COMMIT_ID"
                         chmod +x ./push_to_s3.sh
-                        ./push_to_s3.sh \$S3_BUCKET \$BRANCH_NAME \$TARGETDIR $COMMIT_ID
+                        ./push_to_s3.sh \$S3_BUCKET \$BRANCH_NAME \$TARGETDIR \$COMMIT_ID
                         """
                     }
                 }
