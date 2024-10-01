@@ -22,7 +22,7 @@ pipeline {
         stage('Clone GitLab Repo') {
             steps {
                 script {
-                    sh "git clone --depth=1 --branch=${params.BRANCH_NAME} ${GIT_REPO_URL} ${TARGET_DIRECTORY}"
+                    sh "git clone --depth=1 --branch=${params.BRANCH_NAME} ${GIT_REPO_URL} ${TARGET_DIRECTORY}/code"
                 }
             }
         }
@@ -33,13 +33,14 @@ pipeline {
                     def commitSHA = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                      echo "Commit SHA: ${commitSHA}"
                     def BRANCHNAME = BRANCH_NAME.replaceAll('/', '')
+                    def SOURCE_DIRECTORY = "${TARGET_DIRECTORY}/code"
                     // withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {
                         sh """
                         #!/bin/bash
                         echo "hello"
                         echo "\$commitSHA"
                         chmod +x ./push_to_s3.sh
-                        ./push_to_s3.sh $S3_BUCKET $BRANCHNAME $TARGET_DIRECTORY $commitSHA
+                        ./push_to_s3.sh $S3_BUCKET $BRANCHNAME $SOURCE_DIRECTORY $commitSHA
                         """
                     }
                 }
