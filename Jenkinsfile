@@ -32,7 +32,7 @@ pipeline {
                     //def commitId = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
                     def commitSHA = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                      echo "Commit SHA: ${commitSHA}"
-                    def BRANCHNAME = BRANCH_NAME.replaceAll('/', ''){
+                    def BRANCHNAME = BRANCH_NAME.replaceAll('/', '')
                     // withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {
                         sh """
                         #!/bin/bash
@@ -49,7 +49,6 @@ pipeline {
                 }
             }
         }
-    }
     post {
         failure {
             script {
