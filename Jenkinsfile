@@ -36,10 +36,6 @@ pipeline {
                     // withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {
                         sh """
                         #!/bin/bash
-                        // export S3_BUCKET=${S3_BUCKET}
-                        // export BRANCHNAME=${BRANCHNAME}
-                        // export commitSHA=${commitSHA}     # Groovy variable passed correctly
-                        // export TARGET_DIRECTORY=${TARGET_DIRECTORY}
                         echo "hello"
                         echo "\$commitSHA"
                         chmod +x ./push_to_s3.sh
