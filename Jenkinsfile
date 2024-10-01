@@ -33,18 +33,19 @@ pipeline {
                     //def commitId = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
                     def commitSHA = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                      echo "Commit SHA: ${commitSHA}"
+                    def BRANCHNAME = BRANCH_NAME.replaceAll('/', '')
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {
                         sh """
                         #!/bin/bash
                         export AWS_DEFAULT_REGION=\${AWS_DEFAULT_REGION}
                         export S3_BUCKET=\${S3_BUCKET}
-                        export BRANCH_NAME=\${BRANCH_NAME}
+                        export BRANCHNAME=${BRANCHNAME}
                         export COMMIT_ID=${commitSHA}     # Groovy variable passed correctly
                         export TARGETDIR=\${DIRECTORY}
                         echo "hello"
                         echo "\$COMMIT_ID"
                         chmod +x ./push_to_s3.sh
-                        ./push_to_s3.sh \$S3_BUCKET \$BRANCH_NAME \$TARGETDIR \$COMMIT_ID
+                        ./push_to_s3.sh \$S3_BUCKET \$BRANCHNAME \$TARGETDIR \$COMMIT_ID
                         """
                     }
                 }
