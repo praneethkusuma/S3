@@ -38,7 +38,7 @@ pipeline {
                         #!/bin/bash
                         export S3_BUCKET=${S3_BUCKET}
                         export BRANCHNAME=${BRANCHNAME}
-                        export COMMIT_ID=${commitSHA}     # Groovy variable passed correctly
+                        export commitSHA=${commitSHA}     # Groovy variable passed correctly
                         export TARGET_DIRECTORY=${TARGET_DIRECTORY}
                         echo "hello"
                         echo "\$COMMIT_ID"
