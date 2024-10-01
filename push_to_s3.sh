@@ -12,4 +12,5 @@ TARGETDIR=$3  # Directory where the repository is cloned, e.g., 'qa'
 echo "TARGETDIR: $TARGETDIR"
 aws s3 cp $TARGETDIR s3://$S3_BUCKET/$BRANCH_NAME-$COMMIT_ID/ --recursive
 echo "aws s3 cp $TARGETDIR s3://$S3_BUCKET/$BRANCH_NAME-$COMMIT_ID/ --recursive"
-echo "All files have been uploaded to S3 under ${BRANCH_NAME}/"
+# echo "All files have been uploaded to S3 under ${BRANCH_NAME}/"
+echo "All files have been uploaded to S3 under $BRANCH_NAME-$COMMIT_ID "
