@@ -5,7 +5,6 @@ pipeline {
     environment {
         S3_BUCKET = 'nayl'
         GIT_REPO_URL = 'https://github.com/praneethkusuma/fundtransfer.git'
-        AWS_DEFAULT_REGION = 'ap-south-1'
         targetDirectory = 'QA'
     }
     parameters {
@@ -33,11 +32,10 @@ pipeline {
                     //def commitId = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
                     def commitSHA = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                      echo "Commit SHA: ${commitSHA}"
-                    def BRANCHNAME = BRANCH_NAME.replaceAll('/', '')
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {
+                    def BRANCHNAME = BRANCH_NAME.replaceAll('/', ''){
+                    // withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {
                         sh """
                         #!/bin/bash
-                        export AWS_DEFAULT_REGION=\${AWS_DEFAULT_REGION}
                         export S3_BUCKET=\${S3_BUCKET}
                         export BRANCHNAME=${BRANCHNAME}
                         export COMMIT_ID=${commitSHA}     # Groovy variable passed correctly
