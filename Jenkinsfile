@@ -39,7 +39,7 @@ pipeline {
                         export S3_BUCKET=${S3_BUCKET}
                         export BRANCHNAME=${BRANCHNAME}
                         export COMMIT_ID=${commitSHA}     # Groovy variable passed correctly
-                        export TARGETDIR=${TARGET_DIRECTORY}
+                        export TARGETDIR=\${TARGET_DIRECTORY}
                         echo "hello"
                         echo "\$COMMIT_ID"
                         chmod +x ./push_to_s3.sh
