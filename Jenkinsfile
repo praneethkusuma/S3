@@ -5,7 +5,7 @@ pipeline {
     environment {
         S3_BUCKET = 'nayl'
         GIT_REPO_URL = 'https://github.com/praneethkusuma/fundtransfer.git'
-        targetDirectory = 'QA'
+        TARGET_DIRECTORY = 'QA'
     }
     parameters {
         string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Branch to deploy')
@@ -22,7 +22,7 @@ pipeline {
         stage('Clone GitLab Repo') {
             steps {
                 script {
-                    sh "git clone --depth=1 --branch=${params.BRANCH_NAME} ${GIT_REPO_URL} ${params.DIRECTORY}"
+                    sh "git clone --depth=1 --branch=${params.BRANCH_NAME} ${GIT_REPO_URL} ${TARGET_DIRECTORY}"
                 }
             }
         }
@@ -36,14 +36,14 @@ pipeline {
                     // withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {
                         sh """
                         #!/bin/bash
-                        export S3_BUCKET=\${S3_BUCKET}
+                        export S3_BUCKET=${S3_BUCKET}
                         export BRANCHNAME=${BRANCHNAME}
                         export COMMIT_ID=${commitSHA}     # Groovy variable passed correctly
-                        export TARGETDIR=\${DIRECTORY}
+                        export TARGETDIR=${TARGET_DIRECTORY}
                         echo "hello"
                         echo "\$COMMIT_ID"
                         chmod +x ./push_to_s3.sh
-                        ./push_to_s3.sh \$S3_BUCKET \$BRANCHNAME \$TARGETDIR \$COMMIT_ID
+                        ./push_to_s3.sh $S3_BUCKET $BRANCHNAME $TARGETDIR $COMMIT_ID
                         """
                     }
                 }
