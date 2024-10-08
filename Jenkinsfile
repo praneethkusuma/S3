@@ -39,8 +39,8 @@ pipeline {
                         #!/bin/bash
                         echo "hello"
                         echo "\$commitSHA"
-                        chmod +x ./push_to_s3.sh
-                        ./push_to_s3.sh $S3_BUCKET $BRANCHNAME $SOURCE_DIRECTORY $commitSHA
+                        aws s3 cp $SOURCE_DIRECTORY/ s3://$S3_BUCKET/$BRANCHNAME-$commitSHA/ --acl bucket-owner-full-control --recursive                        
+                        echo "All files have been uploaded to S3 under $BRANCH_NAME-$commitSHA "
                         """
                     }
                 }
