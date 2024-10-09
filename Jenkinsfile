@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     //def commitId = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
-                    def commitSHA = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+                    def commitSHA = sh(returnStdout: true, script: 'git -C ${TARGET_DIRECTORY}/code rev-parse HEAD').trim()
                      echo "Commit SHA: ${commitSHA}"
                     def BRANCHNAME = BRANCH_NAME.replaceAll('/', '')
                     def SOURCE_DIRECTORY = "${TARGET_DIRECTORY}/code"
