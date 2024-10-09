@@ -40,7 +40,7 @@ pipeline {
                         echo "hello"
                         echo "\$commitSHA"
                         aws s3 cp $SOURCE_DIRECTORY/ s3://$S3_BUCKET/$BRANCHNAME-$commitSHA/ --acl bucket-owner-full-control --recursive
-                        echo $? > output.status
+                        echo "\$?" > output.status
                         def ExitCode = readFile("${TARGET_DIRECTORY}/code/output.status").trim()
                         echo "Exit Code: ${ExitCode}"
                         if (ExitCode = "0")
