@@ -40,15 +40,12 @@ pipeline {
                         echo "hello"
                         echo "\$commitSHA"
                         aws s3 cp $SOURCE_DIRECTORY/ s3://$S3_BUCKET/$BRANCHNAME-$commitSHA/ --acl bucket-owner-full-control --recursive
-                        echo "\$?" > output.status
-                        def ExitCode = readFile("${TARGET_DIRECTORY}/code/output.status").trim()
-                        echo "Exit Code: ${ExitCode}"
-                        if (ExitCode = "0")
-                             echo "All files have been uploaded to S3 under $BRANCH_NAME-$commitSHA "
+                        if [ "\$?" -eq 0 ]; then
+                            echo "All files have been uploaded to S3 under $BRANCH_NAME-$commitSHA "
                         else
-                             echo "Failed to upload the files."
-                             exit 1
-                        fi
+                            echo "Failed to upload the files."
+                            exit 1
+                        fi   
                         """
                     }
                 }
