@@ -40,7 +40,7 @@ pipeline {
                         echo "hello"
                         echo "\$commitSHA"
                         aws s3 cp $SOURCE_DIRECTORY/ s3://$S3_BUCKET/$BRANCHNAME-$commitSHA/ --acl bucket-owner-full-control --recursive
-                        if [ $? -eq 0 ]; then
+                        if [ ${?} -eq 0 ]; then
                              echo "All files have been uploaded to S3 under $BRANCH_NAME-$commitSHA "
                         else
                              echo "Failed to upload the files."
